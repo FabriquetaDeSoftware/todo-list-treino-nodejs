@@ -9,9 +9,9 @@ import { CreateTaskUseCase } from './use_cases/create_task.use_case';
     TodoListRepository,
     {
       provide: 'ITodoListRepository',
-      useExisting: TodoListRepository
+      useExisting: TodoListRepository,
     },
-    CreateTaskUseCase
+    CreateTaskUseCase,
   ],
 })
 export class TodoListModule {}

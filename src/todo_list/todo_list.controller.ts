@@ -6,18 +6,11 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('ToDoList')
 @Controller('task')
 export class TodoListController {
+  @Inject()
+  private readonly createTaskUseCase: CreateTaskUseCase;
 
-    @Inject()
-    private readonly createTaskUseCase: CreateTaskUseCase;
-
-    @Post('create')
-    createTask(@Body() task: CreateTaskDto){
-        console.log(task)
-        return this.createTaskUseCase.execute(task);
-    }
-
-    
+  @Post('create')
+  createTask(@Body() task: CreateTaskDto) {
+    return this.createTaskUseCase.execute(task);
+  }
 }
-
-
-
