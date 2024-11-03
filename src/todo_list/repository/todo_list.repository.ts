@@ -10,11 +10,22 @@ export class TodoListRepository implements ITodoListRepository {
   @Inject()
   private readonly prismaService: PrismaService;
 
-  async createTask(task: CreateTaskDto): Promise<ToDoList> {
+  public async createTask(task: CreateTaskDto): Promise<ToDoList> {
     const result = await this.prismaService.toDoList.create({
       data: { ...task },
     });
 
     return { ...result, status: result.status as ToDoStatus };
+  }
+
+  public async getTaskByStatus(status: ToDoStatus): Promise<ToDoList[]> {
+    const result = await this.prismaService.toDoList.findMany({
+      where: { status },
+    });
+
+    return result.map((task) => ({
+      ...task,
+      status: task.status as ToDoStatus,
+    }));
   }
 }
