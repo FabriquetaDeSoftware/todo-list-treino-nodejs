@@ -36,7 +36,7 @@ export class TodoListRepository implements ITodoListRepository {
 
   public async getTaskById(id: number): Promise<ToDoList> {
     const result = await this.prismaService.toDoList.findUnique({where: {id}});
-    return result;
+    return { ...result, status: result.status as ToDoStatus };
   }
 }
 
